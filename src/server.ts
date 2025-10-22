@@ -14,7 +14,7 @@ async function main() {
       await redisClient.connect();
 
       server = app.listen(config.port, () => {
-         console.log(`MiniLink app is listening on port ${config.port}`);
+         console.log(`MiniUrl app is listening on port ${config.port}`);
       });
    } catch (err) {
       console.log(err);

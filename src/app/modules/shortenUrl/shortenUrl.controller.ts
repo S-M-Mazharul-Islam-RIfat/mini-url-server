@@ -6,7 +6,6 @@ import { ShortenUrlServices } from "./shortenUrl.service";
 
 const createShortenUrl = catchAsync(async (req: Request, res: Response) => {
    const result = await ShortenUrlServices.createShortenUrlIntoDB(req.body);
-   console.log(req.body);
    sendResponse(res, {
       statusCode: status.OK,
       success: true,

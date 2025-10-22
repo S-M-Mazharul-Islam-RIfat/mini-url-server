@@ -8,10 +8,10 @@ const createShortenUrlIntoDB = async (payload: TShortenUrl) => {
    const id = await redisClient.incr("global_id");
    const shortUrlId = encodeBase62(id);
    payload.shortCode = shortUrlId;
-   payload.shortUrl = "https://minilink.com/" + shortUrlId;
+   payload.shortUrl = "https://miniurl.com/" + shortUrlId;
    const result = await ShortenUrlModel.create(payload);
 
-   await redisClient.set(`short:${shortUrlId}`, payload.originalUrl, { EX: 3600 });
+   await redisClient.set(`short:${shortUrlId}`, payload.originalUrl, { EX: 3600 * 10 });
 
    return result;
 }
@@ -31,7 +31,7 @@ const getOrginalUrlFromDB = async (payload: string) => {
       throw err;
    }
 
-   await redisClient.set(`short:${payload}`, result.originalUrl, { EX: 3600 });
+   await redisClient.set(`short:${payload}`, result.originalUrl, { EX: 3600 * 10 });
 
    return result.originalUrl;
 
